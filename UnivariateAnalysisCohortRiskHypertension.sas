@@ -1,0 +1,86 @@
+/* Univariate Analysis of Cohort at Risk for Hypertension */
+/* View cohort and associated variables */
+FILENAME F1 'C:\........Demo11.txt';
+DATA Demo11;
+INFILE F1 DLM='09'X;
+INPUT TYPE $ AGE HEIGHT WEIGHT;
+RUN;
+PROC PRINT DATA=Demo11;
+RUN;
+
+/* Mean of variables, Age, Height, and Weight */
+FILENAME F1 'C:\........Demo11.txt';
+DATA Demo11;
+INFILE F1 DLM='09'X;
+INPUT TYPE $ AGE HEIGHT WEIGHT;
+RUN;
+PROC MEANS DATA=Demo11 MAXDEC=1;
+VAR AGE HEIGHT WEIGHT;
+RUN;
+PROC SORT DATA=Demo11;
+BY TYPE;
+RUN;
+PROC PRINT DATA=Demo11;
+RUN;
+
+/*Create frequency table of variables */
+FILENAME F1 'C:\........Demo11.txt';
+DATA Demo11;
+INFILE F1 DLM='09'X;
+INPUT TYPE $ AGE HEIGHT WEIGHT;
+RUN;
+PROC FREQ DATA=Demo11;
+TABLE TYPE*WEIGHT;
+RUN;
+PROC PRINT DATA=Demo11;
+RUN;
+
+/* Create table adding Gender variable */
+FILENAME F1 'C:\........Demo11.txt';
+DATA Demo12;
+INFILE F1 DLM='09'X;
+INPUT GENDER $ AGE SBP DBP;
+RUN;
+PROC PRINT DATA=Demo12;
+RUN;
+
+/* Univariate analysis of table with gender variable using the SRS method */
+FILENAME F1 'C:......Demo12.txt';
+DATA Demo12;
+INFILE F1 DLM='09'X;
+INPUT GENDER $ AGE SBP DBP;
+RUN;
+PROC SURVEYSELECT DATA= Demo12
+	METHOD= 	SRS
+	SAMPSIZE= 	17
+	OUT=		Ques9;
+	ID _ALL_;
+	RUN;
+PROC UNIVARIATE DATA= Ques9;
+VAR SBP DBP;
+RUN;
+ODS SELECT BASICINTERVALS;
+PROC UNIVARIATE DATA= Ques9 CIBASIC;
+VAR SBP DBP;
+RUN;
+PROC PRINT DATA= Ques9;
+RUN;
+
+/* create grapth of SBP and DBP */
+FILENAME F1 'C:\Users\Kimist99\Desktop\Demo12.txt';
+DATA Demo12;
+INFILE F1 DLM='09'X;
+INPUT GENDER $ AGE SBP DBP;
+RUN;
+PROC SORT DATA=DEMO12;
+BY DESCENDING SBP;
+RUN;
+PROC UNIVARIATE DATA=DEMO12;
+VAR SBP DBP;
+HISTOGRAM;
+RUN;
+PROC PRINT DATA=Demo12;
+RUN;
+
+
+
