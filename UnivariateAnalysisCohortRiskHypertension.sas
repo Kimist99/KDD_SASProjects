@@ -66,7 +66,7 @@ RUN;
 PROC PRINT DATA= Ques9;
 RUN;
 
-/* create grapth of SBP and DBP */
+/* create graphs of SBP and DBP */
 FILENAME F1 'C:\Users\Kimist99\Desktop\Demo12.txt';
 DATA Demo12;
 INFILE F1 DLM='09'X;
