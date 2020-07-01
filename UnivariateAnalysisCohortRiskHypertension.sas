@@ -67,7 +67,7 @@ PROC PRINT DATA= Ques9;
 RUN;
 
 /* create graphs of SBP and DBP */
-FILENAME F1 'C:\Users\Kimist99\Desktop\Demo12.txt';
+FILENAME F1 'C:......Demo12.txt';
 DATA Demo12;
 INFILE F1 DLM='09'X;
 INPUT GENDER $ AGE SBP DBP;
